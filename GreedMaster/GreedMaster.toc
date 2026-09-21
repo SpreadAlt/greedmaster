@@ -1,0 +1,8 @@
+## Interface: 30300
+## Title: GreedMaster
+## Notes: Автоматические "Не откажусь" и "Распылить".
+## Author: Альтруист
+## Version: 1.3.5
+## SavedVariables: GreedMasterDB
+
+GreedMaster.lua
