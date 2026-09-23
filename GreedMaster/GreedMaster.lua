@@ -151,15 +151,25 @@ local function TryAutoRoll(rollID)
   if not Session.enabled then return end
   if not IsAtMaxLevel() then return end
 
-  local _, name, _, quality, bindOnPickUp, _, canGreed, canDisenchant = GetLootRollItemInfo(rollID)
+  local _, name, _, quality, bindOnPickUp, canNeed, canGreed, canDisenchant = GetLootRollItemInfo(rollID)
   if not name or not quality then return end
+
+  local itemLink = GetLootRollItemLink(rollID)
+  local itemID = itemLink and tonumber(string.match(itemLink, "item:(%d+)"))
+
+  if itemID == 23572 then
+    if canNeed then
+      EnqueueRoll(rollID, 1)
+    end
+    return
+  end
+
   if not ShouldHandleQuality(quality) then return end
 
   if GreedMasterDB.boeOnly and bindOnPickUp then
     return
   end
 
-  local itemLink = GetLootRollItemLink(rollID)
   local rollType
 
   if quality == QUAL_EPIC then
